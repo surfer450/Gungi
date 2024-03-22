@@ -93,7 +93,10 @@ public abstract class Player
 
 
 	}
-	
+	public void printM()
+	{
+		System.out.println(playerPieces.get(1).getRow() * 9 + playerPieces.get(1).getCol());
+	}
 	public boolean isMarshelExist()
 	{
 		if (playerPieces.get(1) == null)

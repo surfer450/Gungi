@@ -12,18 +12,31 @@ public class Piece
 	private ArrayList<int[]> allVectorsRow = new ArrayList<int[]>();
 	private ArrayList<int[]> allVectorsCol = new ArrayList<int[]>();
 	private int tier = 1;
+
+
+	private double[] Points;
 	
 	public Piece(int row, int col)
 	{
 		this.row = row;
 		this.col = col;	
 	}
-	
+
+
+	public void SetPoints(double[] Points)
+	{
+		this.Points = Points;
+	}
+	public double getPoints()
+	{
+		return Points[tier-1];
+	}
 	public Piece()
 	{
 		this.row = 0;
 		this.col = 0;		
 	}
+
 	
 	public void addVectorsToList(int[] vectorRow, int[] vectorCol)
 	{
@@ -61,7 +74,15 @@ public class Piece
 	{
 		this.tier = tier;
 	}
-	
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
 	public int[] getAllPossibleIndexes()
 	{
 		

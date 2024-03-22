@@ -54,22 +54,50 @@ public class viewClass
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setTitle("Gungi");	
 		frame.setIconImage(frameImage.getImage());
-		frame.setLayout(null);	
-			
+		frame.setLayout(null);
+
+		JLabel startConditionLable = new JLabel();
+		startConditionLable.setText("Chose who you would like to play against");
+		startConditionLable.setBackground(Color.WHITE);
+		startConditionLable.setBounds(400, 50, 500, 30);
+		startConditionLable.setFont(new Font("David", Font.PLAIN,30));
+		frame.add(startConditionLable,Integer.valueOf(0));
+
+		JButton humanButton = new JButton();
+		humanButton.setText("Human");
+		humanButton.setBackground(new Color(0x111e2e));
+		humanButton.setForeground(Color.WHITE);
+		humanButton.setBounds(400, 200, 100, 25);
+		humanButton.setBorder(null);
+		humanButton.addActionListener(e -> setBoard("Human"));
+		frame.add(humanButton,Integer.valueOf(0));
+
+		JButton computerButton = new JButton();
+		computerButton.setText("Computer");
+		computerButton.setBackground(new Color(0x111e2e));
+		computerButton.setForeground(Color.WHITE);
+		computerButton.setBounds(600, 200, 100, 25);
+		computerButton.setBorder(null);
+		computerButton.addActionListener(e -> setBoard("Computer"));
+		frame.add(computerButton,Integer.valueOf(0));
+	}
+
+	public void setBoard(String mode)
+	{
 		//board panel settings
 		boradPanel.setBackground(Color.RED);
 		boradPanel.setBounds(39, 41, 720, 720);
 		boradPanel.setLayout(new GridLayout(9,9));
-	
-			
+
+
 		//player 1 panel settings
 		piecesPanel1.setBackground(Color.WHITE);
 		piecesPanel1.setBounds(790, 123, 380, 150);
-			
+
 		//player 2 panel settings
 		piecesPanel2.setBackground(Color.WHITE);
 		piecesPanel2.setBounds(790, 528, 380, 150);
-		
+
 		//ready buttons settings
 		readyP1.setText("ready");
 		readyP1.setBackground(new Color(0x111e2e));
@@ -77,59 +105,58 @@ public class viewClass
 		readyP1.setBounds(978, 289, 100, 28);
 		readyP1.setBorder(null);
 		readyP1.addActionListener(e ->gameControllerObject.readyButtonFunction(readyP1));
-		
+
 		readyP2.setText("ready");
 		readyP2.setBackground(new Color(0x111e2e));
 		readyP2.setForeground(Color.WHITE);
 		readyP2.setBounds(978, 694, 100, 28);
 		readyP2.setBorder(null);
 		readyP2.addActionListener(e ->gameControllerObject.readyButtonFunction(readyP2));
-		
+
 		//game state label settings
 		gameStateLabel.setText("Start Phase");
 		gameStateLabel.setBackground(Color.WHITE);
 		gameStateLabel.setBounds(330, 10, 200, 30);
 		gameStateLabel.setFont(new Font("David", Font.PLAIN,30));
-		
+
 		//move panel settings
 		movePanel.setBounds(100, 100, 200, 30);
 		movePanel.setLayout(new GridLayout(1,2));
 		movePanel.setVisible(false);
-		
+
 		//attack button settings
 		attackButton.setText("Attack");
 		attackButton.setBackground(Color.DARK_GRAY);
 		attackButton.addActionListener(e ->gameControllerObject.attackButtonFunction(chosenSquareButton, chosenSquareButtonEnd));
 		movePanel.add(attackButton);
-		
+
 		//stack button settings
 		stackButton.setText("Stack");
 		stackButton.setBackground(Color.DARK_GRAY);
 		stackButton.addActionListener(e ->gameControllerObject.stackButtonFunction(chosenSquareButton, chosenSquareButtonEnd));
 		movePanel.add(stackButton);
-			
 
-			
-		ImageIcon frameBackground = new ImageIcon("Project images\\background.png");	
+
+
+		ImageIcon frameBackground = new ImageIcon("Project images\\background.png");
 		JLabel backgroundLabel = new JLabel();
 		backgroundLabel.setIcon(frameBackground);
 		backgroundLabel.setBounds(0, 0, 1200, 800);
 
-		
-		//adding to frame 
-		JLayeredPane layeredPane = frame.getLayeredPane();
-	    layeredPane.add(boradPanel,Integer.valueOf(0));
-	    layeredPane.add(piecesPanel1,Integer.valueOf(0));
-	    layeredPane.add(piecesPanel2,Integer.valueOf(0));
-	    layeredPane.add(readyP1,Integer.valueOf(0));
-	    layeredPane.add(readyP2,Integer.valueOf(0));	
-	    layeredPane.add(gameStateLabel,Integer.valueOf(0));
-	    layeredPane.add(movePanel,Integer.valueOf(1));
-	    layeredPane.add(backgroundLabel,Integer.valueOf(0));
-	    
 
+		//adding to frame
+		JLayeredPane layeredPane = frame.getLayeredPane();
+		layeredPane.add(boradPanel,Integer.valueOf(0));
+		layeredPane.add(piecesPanel1,Integer.valueOf(0));
+		layeredPane.add(piecesPanel2,Integer.valueOf(0));
+		layeredPane.add(readyP1,Integer.valueOf(0));
+		layeredPane.add(readyP2,Integer.valueOf(0));
+		layeredPane.add(gameStateLabel,Integer.valueOf(0));
+		layeredPane.add(movePanel,Integer.valueOf(1));
+		layeredPane.add(backgroundLabel,Integer.valueOf(0));
+
+		gameControllerObject.setGame(mode);
 	}
-	
 	public void setGameController(gameController gameControllerObject)
 	{
 		this.gameControllerObject = gameControllerObject;
@@ -218,7 +245,6 @@ public class viewClass
 		{
 			turnListOfButtonsToBlue(allIndexes, null);
 		}
-		System.out.println(chosenPieceButton.getText());	
 	}
 	
 	public String nameOfChosenPiece()
@@ -398,8 +424,92 @@ public class viewClass
 	{
 		return chosenPieceButton.getText().split(" ", 2)[0];
 	}
-	
-	
+
+	public void activatePut(MoveObject moveObject, String color)
+	{
+		JPanel currPannel;
+		if (color.equals("White"))
+		{
+			currPannel = piecesPanel2;
+		}
+
+		else
+		{
+			currPannel = piecesPanel1;
+		}
+
+		Component[] pieceButtons = currPannel.getComponents();
+		for (Component component : pieceButtons)
+		{
+			JButton currButton =(JButton) component;
+			String[] words = currButton.getText().split("\\s+");
+			String pieceName = words[0];
+			if (pieceName.equals(moveObject.getPieceMovingName()))
+			{
+				gameControllerObject.pieceButtonFunction(chosenSquareButton, currButton, chosenPieceButton);
+			}
+		}
+		Component[] squareButtons = boradPanel.getComponents();
+		int index = moveObject.getNewIndex();
+		if (color.equals("White") && gameControllerObject.getGameState().equals("start phase"))
+		{
+			index = 80 - index;
+		}
+		for (Component component : squareButtons)
+		{
+			JButtonSquare currButton =(JButtonSquare) component;
+			if (currButton.getIndex() == index)
+			{
+				gameControllerObject.squareButtonFunction(currButton, chosenPieceButton, chosenSquareButton);
+			}
+		}
+	}
+
+	public void activateMove(MoveObject moveObject, String color)
+	{
+		JButtonSquare oldButton = new JButtonSquare(), newButton = new JButtonSquare();
+		Component[] squareButtons = boradPanel.getComponents();
+		for (Component component : squareButtons)
+		{
+			JButtonSquare currButton =(JButtonSquare) component;
+			if (currButton.getIndex() == moveObject.getOldIndex())
+				oldButton = currButton;
+			if (currButton.getIndex() == moveObject.getNewIndex())
+				newButton = currButton;
+		}
+		gameControllerObject.squareButtonFunction(oldButton, chosenPieceButton, chosenSquareButton);
+		gameControllerObject.squareButtonFunction(newButton, chosenPieceButton, chosenSquareButton);
+	}
+
+	public void activateAttack(MoveObject moveObject, String color)
+	{
+		activateMove(moveObject, color);
+		gameControllerObject.attackButtonFunction(chosenSquareButton, chosenSquareButtonEnd);
+	}
+
+	public void activateStack(MoveObject moveObject, String color)
+	{
+
+		activateMove(moveObject, color);
+		gameControllerObject.stackButtonFunction(chosenSquareButton, chosenSquareButtonEnd);
+	}
+
+	public void activateReady(String color)
+	{
+		JButton currReadyBotton;
+		if (color.equals("White"))
+		{
+			currReadyBotton = readyP2;
+		}
+
+		else
+		{
+			currReadyBotton = readyP1;
+		}
+
+		gameControllerObject.readyButtonFunction(currReadyBotton);
+	}
+
 	public void putPiece(JButtonSquare button)
 	{
 		//changing square image
@@ -424,6 +534,7 @@ public class viewClass
 		
 		chosenPieceButton.setBackground(Color.WHITE);
 		chosenPieceButton = null;
+
 	}
 
 

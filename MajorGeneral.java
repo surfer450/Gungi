@@ -9,6 +9,7 @@ public class MajorGeneral extends Piece
 		addVectorsToList(new int[] {-1, -1}, new int[] {-1, 1});
 		addVectorsToList(new int[] {-1, -1, -1, 1, 1}, new int[] {-1, 0, 1, -1, 1});
 		addVectorsToList(new int[]{-1, -1, -1, 0, 0, 1}, new int[]{-1, 0, 1, -1, 1, 0});
+		SetPoints(new double[]{1.25, 2.5, 2.75});
 	}
 	
 	public MajorGeneral()

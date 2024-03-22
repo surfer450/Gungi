@@ -9,6 +9,7 @@ public class General extends Piece
 		addVectorsToList(new int[]{-1, -1, -1, 0, 0, 1}, new int[]{-1, 0, 1, -1, 1, 0});
 		addVectorsToList(new int[] {-1, -1, -1, 0, 0, 1, 1, 1}, new int[] {-1, 0, 1, -1, 1, -1, 0, 1});
 		addVectorsToList(new int[] {-2,-2,-2,-1, -1, -1, 0, 0, 1, 1, 1}, new int[] {-1,0,1,-1, 0, 1, -1, 1, -1, 0, 1});
+		SetPoints(new double[]{2.5, 3, 3.5});
 		
 	}
 	

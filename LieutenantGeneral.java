@@ -9,6 +9,7 @@ public class LieutenantGeneral extends Piece
 		addVectorsToList(new int[] {-1, -1, -1, 1, 1}, new int[] {-1, 0, 1, -1, 1});
 		addVectorsToList(new int[] {-1,-1,-1,1,1,1}, new int[] {-1,0,1,-1,0,1});
 		addVectorsToList(new int[] {-1, -1, -1, 0, 0, 1, 1, 1}, new int[] {-1, 0, 1, -1, 1, -1, 0, 1});
+		SetPoints(new double[]{2.5, 2.75, 3});
 	}
 	
 	public LieutenantGeneral()
