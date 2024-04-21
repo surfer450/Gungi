@@ -1,5 +1,4 @@
 package gungi.Controllers;
-
 import gungi.Enums.GameMode;
 import gungi.Enums.GameState;
 import gungi.Enums.PieceType;
@@ -10,7 +9,6 @@ import gungi.Observers.controllerObserver;
 import gungi.Views.JButtonPiece;
 import gungi.Views.JButtonSquare;
 import gungi.Views.viewClass;
-
 import javax.swing.JButton;
 import java.awt.*;
 import java.sql.SQLOutput;
